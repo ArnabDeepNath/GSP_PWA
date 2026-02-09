@@ -9,7 +9,6 @@ import 'package:gstsync/features/invoice/presentation/bloc/invoice_bloc.dart';
 import 'package:gstsync/features/invoice/presentation/pages/edit_invoice_page.dart';
 import 'package:gstsync/features/item/domain/models/item.dart';
 import 'package:gstsync/features/item/presentation/bloc/item_bloc.dart';
-import 'package:gstsync/features/item/presentation/pages/item_details_page.dart';
 import 'package:gstsync/features/store/presentation/providers/store_provider.dart';
 import 'package:intl/intl.dart';
 
@@ -88,8 +87,7 @@ class _GlobalSearchPageState extends State<GlobalSearchPage>
     if (itemState is ItemsLoaded) {
       _matchedItems = itemState.items.where((item) {
         return item.name.toLowerCase().contains(lowerQuery) ||
-            (item.hsnCode?.toLowerCase().contains(lowerQuery) ?? false) ||
-            (item.description?.toLowerCase().contains(lowerQuery) ?? false);
+            (item.hsn?.toLowerCase().contains(lowerQuery) ?? false);
       }).toList();
     }
 
@@ -447,17 +445,17 @@ class _GlobalSearchPageState extends State<GlobalSearchPage>
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (item.hsnCode != null && item.hsnCode!.isNotEmpty)
-                  _highlightMatch('HSN: ${item.hsnCode}', _searchQuery),
+                if (item.hsn != null && item.hsn!.isNotEmpty)
+                  _highlightMatch('HSN: ${item.hsn}', _searchQuery),
                 Text(
-                  '₹${item.price.toStringAsFixed(2)} • ${item.taxRate}% GST',
+                  '₹${item.unitPrice.toStringAsFixed(2)} • ${item.taxRate}% GST',
                   style: TextStyle(color: Colors.grey[600]),
                 ),
               ],
             ),
             trailing: const Icon(Icons.chevron_right, color: Colors.grey),
             onTap: () {
-              // Navigate to item details if available
+              // Show item details in a snackbar for now
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('Item: ${item.name}')),
               );
