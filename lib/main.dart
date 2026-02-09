@@ -18,6 +18,7 @@ import 'package:gstsync/features/party/data/repositories/party_repository.dart';
 import 'package:gstsync/features/invoice/data/repositories/invoice_repository.dart';
 import 'package:gstsync/features/item/data/repositories/item_repository.dart';
 import 'package:gstsync/features/item/presentation/bloc/item_bloc.dart';
+import 'package:gstsync/config/app_theme.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:gstsync/core/widgets/splash_screen.dart';
@@ -99,14 +100,9 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: 'GST Sync',
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-            useMaterial3: true,
-            appBarTheme: const AppBarTheme(
-              centerTitle: true,
-              elevation: 0,
-            ),
-          ),
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: ThemeMode.system, // Automatically switch based on system settings
           home: const AuthWrapper(),
           routes: {
             '/login': (context) => const LoginPage(),

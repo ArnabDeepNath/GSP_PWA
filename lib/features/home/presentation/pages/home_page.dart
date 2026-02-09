@@ -16,6 +16,7 @@ import 'package:gstsync/features/store/presentation/widgets/drawer_store_selecto
 import 'package:gstsync/features/business_tools/presentation/widgets/business_tools_widget.dart';
 import 'package:gstsync/features/invoice/domain/models/invoice_item.dart';
 import 'package:gstsync/features/invoice/data/repositories/invoice_repository.dart';
+import 'package:gstsync/features/home/presentation/pages/global_search_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:gstsync/features/invoice/presentation/bloc/invoice_bloc.dart';
@@ -851,18 +852,34 @@ class HomePageState extends State<HomePage> {
         horizontal: 16.0,
         vertical: 4,
       ),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: const TextField(
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            icon: Icon(Icons.search),
-            hintText: 'Search',
-            hintStyle: TextStyle(color: Colors.grey),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const GlobalSearchPage(),
+            ),
+          );
+        },
+        borderRadius: BorderRadius.circular(12),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            children: [
+              Icon(Icons.search, color: Colors.grey[600]),
+              const SizedBox(width: 12),
+              Text(
+                'Search parties, invoices, items...',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 15,
+                ),
+              ),
+            ],
           ),
         ),
       ),
