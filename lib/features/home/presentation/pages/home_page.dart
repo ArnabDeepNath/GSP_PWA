@@ -28,6 +28,7 @@ import 'dart:io';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import '../../../party/domain/models/party.dart';
+import '../widgets/premium_home_content.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -758,17 +759,30 @@ class HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Column(
           children: [
-            // _buildHeader(context),
-            // const SizedBox(height: 16),
-            if (_currentIndex == 0) _buildSearchBar(),
-            const SizedBox(height: 16),
+            // Premium home content has its own search bar
             // _buildTabBar(context),
             Expanded(
               child: PageView(
                 controller: _pageController,
                 onPageChanged: _onPageChanged,
                 children: [
-                  _buildHomeContent(),
+                  PremiumHomeContent(
+                    onNavigateToParties: () => _pageController.animateToPage(
+                      1,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    ),
+                    onNavigateToInvoices: () => _pageController.animateToPage(
+                      2,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    ),
+                    onNavigateToReports: () => _pageController.animateToPage(
+                      4,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    ),
+                  ),
                   const PartyListPage(),
                   const InvoiceListPage(),
                   const ItemListPage(), // This uses the ItemListPage class that handles its own multi-select

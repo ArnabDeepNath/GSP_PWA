@@ -33,6 +33,10 @@ dependencies:
   fl_chart: ^0.69.0
   syncfusion_flutter_charts: ^29.1.38
   excel: ^4.0.2
+  
+  # HTTP Client for WhatsApp API
+  http: ^1.2.0
+
 
 dev_dependencies:
   flutter_test:
